@@ -4,6 +4,8 @@ services:
   db:
     image: mysql:8.0
     container_name: mysql8
+    volumes:
+      - db_data:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
@@ -18,7 +20,7 @@ services:
     depends_on:
       - db
     ports:
-      - 10090:80
+      - 8080:80
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_USER: wp_user
@@ -35,4 +37,6 @@ services:
     depends_on:
       - db
     ports:
-      - 10099:80
+      - 8888:80
+volumes:
+  db_data:
